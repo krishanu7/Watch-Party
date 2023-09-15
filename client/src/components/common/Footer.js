@@ -36,6 +36,7 @@ const StyledFooter = styled.div`
   justify-content: center;
   font-size: 0.9em;
   font-weight: 500;
+  font-style: italic;
   flex-wrap: wrap;
   padding: 0 5%;
   text-align: center;

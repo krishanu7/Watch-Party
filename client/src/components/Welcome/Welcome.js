@@ -3,17 +3,21 @@ import styled from "styled-components";
 import { Container, Row, Col, Hidden } from "react-grid-system";
 import Topbar from "../common/Topbar";
 import Footer from "../common/Footer";
+import Form from "./StartForm"
 import { colors } from "../../config/colors";
 import Button from "../common/Button";
 import FeatureBox from "./FeatureBox";
 
 const Welcome = (props) => {
   let isEnd = useRef(null);
+  const [hostLoading, setHostLoading] = useState(false);
+
   const scrollToBottom = () => {
     if (isEnd && isEnd.current) {
       isEnd.current.scrollIntoView({ behavior: "smooth" });
     }
   };
+  
   return (
     <>
       <Topbar />
@@ -42,10 +46,14 @@ const Welcome = (props) => {
         </Row>
         <FeatureBox />
       </Container>
-      <Container>
+      <Container fluid>
         <Row align='center' style={styles.formContainer}>
           <Col md={2}></Col>
-          {/*  */}
+          <Form 
+            onHost
+            onJoin
+            hostLoading = {hostLoading}
+          />
           <Col md={2}></Col>
           <div className="dummy" ref={isEnd}></div>
         </Row>

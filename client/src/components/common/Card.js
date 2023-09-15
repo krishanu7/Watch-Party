@@ -10,6 +10,6 @@ const StyledCard = styled.div`
 	box-shadow: 2px 2px 5px #ddd;
 	width: ${(props) => props.width || 'auto'};
 	height: ${(props) => props.height || 'auto'};
-	background-color: #fff;
+	background-color: #FFF5E4;
 	border-radius: 10px;
 `;

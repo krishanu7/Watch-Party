@@ -1,12 +1,13 @@
-import React, { useState , useRef} from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { Container, Row, Col, Hidden } from "react-grid-system";
 import Topbar from "../common/Topbar";
 import Footer from "../common/Footer";
-import Form from "./StartForm"
+import Form from "./StartForm";
 import { colors } from "../../config/colors";
 import Button from "../common/Button";
 import FeatureBox from "./FeatureBox";
+import { getVideoId } from "../../utills/helper";
 
 const Welcome = (props) => {
   let isEnd = useRef(null);
@@ -17,7 +18,18 @@ const Welcome = (props) => {
       isEnd.current.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  const onHost = async (hostName, videoURL) => {
+    setHostLoading(true);
+    const videoId = getVideoId(videoURL);
+    setHostLoading(false);
+  };
   
+  const onJoin = async (joinName, joinURL) => {
+    const splitURL = joinURL.split("/");
+    const roomId = splitURL[splitURL.length - 1];
+  };
+
   return (
     <>
       <Topbar />
@@ -47,13 +59,9 @@ const Welcome = (props) => {
         <FeatureBox />
       </Container>
       <Container fluid>
-        <Row align='center' style={styles.formContainer}>
+        <Row align="center" style={styles.formContainer}>
           <Col md={2}></Col>
-          <Form 
-            onHost
-            onJoin
-            hostLoading = {hostLoading}
-          />
+          <Form onHost={onHost} onJoin={onJoin} hostLoading={hostLoading} />
           <Col md={2}></Col>
           <div className="dummy" ref={isEnd}></div>
         </Row>
@@ -75,11 +83,11 @@ const styles = {
     minWidth: "200px",
     padding: "15px 10px",
   },
-  formContainer : {
+  formContainer: {
     backgroundImage: "linear-gradient(#f9f9f9, #fff)",
     marginBottom: "40px",
     zIndex: 10,
-    height: "100vh"
-  }
+    height: "100vh",
+  },
 };
 export default Welcome;

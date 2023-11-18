@@ -1,34 +1,30 @@
 import React from "react";
 import styled from "styled-components";
-import {Row, Col} from 'react-grid-system';
 import { colors } from "../../config/colors";
 
 const Topbar = () => {
   return (
-    <Row>
-      <Col>
-        <StyledBar>
-          <img
-            src="/watchparty-logo.svg"
-            alt="logo"
-            width="auto"
-            height="25px"
-            style={{ marginRight: "8px" }}
-          ></img>
-          <span style={{ color: colors.primaryColor }}>WATCH</span>
-          &nbsp;PARTY
-        </StyledBar>
-      </Col>
-    </Row>
+    <StyledBar>
+      <img
+        src="/watchparty-logo.svg"
+        alt="logo"
+        width="auto"
+        height="25px"
+        style={{ marginRight: "8px" }}
+      ></img>
+      <span style={{ color: colors.primaryColor }}>WATCH</span><span></span>
+      <span style={{color:"#F5F7F8"}}>&nbsp;PARTY</span>
+    </StyledBar>
   );
 };
 const StyledBar = styled.div`
-    display: flex;
-    height: 8vh;
-    box-shadow: 2px 2px 10px #ddd;
-    align-items: center;
-	justify-content: center;
-    font-size: 1.8em;
-	font-weight: 800;
+  display: flex;
+  height: 8vh;
+  box-shadow: 2px 2px 10px #ddd;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8em;
+  font-weight: 800;
+  background-color: #22092C;
 `;
 export default Topbar;

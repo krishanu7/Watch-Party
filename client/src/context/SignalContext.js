@@ -9,7 +9,7 @@ the global context data is updated which in turn fires different Video Player
 related functions using useEffect(). 
 
 For example, when PLAY_VIDEO event is trigerred, 'playVideo' will update with 
-the value of the current video time. For PAUSE_VIDEO, it will hold UNIX timestamp
+the value of the current video time. For PAUSE_VIDEO, it will hold timestamp
 as we don't really need time to pause a video, we just want to update the state
 to trigger useEffect() hooks
 */

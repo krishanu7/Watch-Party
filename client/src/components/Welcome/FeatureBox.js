@@ -42,7 +42,7 @@ const Box = (props) => {
       <IconComponent
         style={{
           fontSize: "2em",
-          color: colors.primaryColor,
+          color: colors.secondaryColor,
         }}
       />
       <div>{props.children}</div>

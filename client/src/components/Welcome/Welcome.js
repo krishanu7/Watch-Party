@@ -2,7 +2,6 @@ import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import { Container, Row, Col, Hidden } from "react-grid-system";
 import Topbar from "../common/Topbar";
-import Footer from "../common/Footer";
 import Form from "./StartForm";
 import { colors } from "../../config/colors";
 import Button from "../common/Button";
@@ -22,18 +21,25 @@ const Welcome = (props) => {
   const onHost = async (hostName, videoURL) => {
     setHostLoading(true);
     const videoId = getVideoId(videoURL);
+    //Create a Socket connection
+    
     setHostLoading(false);
   };
   
   const onJoin = async (joinName, joinURL) => {
+    //TODO : Add verification for join url set password like thing
     const splitURL = joinURL.split("/");
     const roomId = splitURL[splitURL.length - 1];
+    props.history.push({
+      pathname: `/room/${roomId}`,
+      state: {joinName},
+    })
   };
 
   return (
     <>
       <Topbar />
-      <Container fluid style={{ height: "92vh" }}>
+      <Container fluid>
         <Row style={{ paddingTop: "80px" }} align="center">
           <Hidden xs>
             <Col xs={2}></Col>
@@ -56,17 +62,16 @@ const Welcome = (props) => {
             <Col xs={2}></Col>
           </Hidden>
         </Row>
-        <FeatureBox />
       </Container>
+      <FeatureBox />
       <Container fluid>
         <Row align="center" style={styles.formContainer}>
-          <Col md={2}></Col>
+          <Col xs={12} md={2}></Col>
           <Form onHost={onHost} onJoin={onJoin} hostLoading={hostLoading} />
-          <Col md={2}></Col>
+          <Col xs={12} md={2}></Col>
           <div className="dummy" ref={isEnd}></div>
         </Row>
       </Container>
-      <Footer />
     </>
   );
 };
@@ -87,7 +92,7 @@ const styles = {
     backgroundImage: "linear-gradient(#f9f9f9, #fff)",
     marginBottom: "40px",
     zIndex: 10,
-    height: "100vh",
+    minHeight: "100vh",
   },
 };
 export default Welcome;

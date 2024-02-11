@@ -1,5 +1,5 @@
 import React, { createContext , useReducer } from 'react'
-import {signalReducer} from "../reducers/SignalReducer"
+import {signalReducer} from "../reducers/signalReducer"
 export const SignalContext = createContext();
 
 /*

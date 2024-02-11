@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVideo, faShare, faUser } from '@fortawesome/free-solid-svg-icons';
 import { colors } from "../../config/colors";
+
 const Options = (props) => {
   return (
     <OptionsContainer>
@@ -41,9 +42,10 @@ const OptionButton = ({ children, icon, ...props }) => {
 const StyledOptionButton = styled.button`
   margin: 0;
   padding: 0 15px;
-  background-color: ${colors.accentColor};
+  background-color: ${colors.secondaryColor};
   color: ${colors.navbarColor};
   border-radius: 5px;
+  border: 1px solid hsl(202.54deg 100% 73.3%);
   margin-right: 3px;
   display: flex;
   flex: 1;

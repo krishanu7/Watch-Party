@@ -26,7 +26,7 @@ const CustomForm = (props) => {
     </form>
   );
 };
-const Forms = (props) => {
+const Forms = ({onHost, onJoin, hostLoading}) => {
   const [hostName, setHostName] = useState("");
   const [videoURl, setVideoURL] = useState("");
   const [joinName, setJoinName] = useState("");
@@ -34,11 +34,11 @@ const Forms = (props) => {
 
   const _onHost = (e) => {
     e.preventDefault();
-    props.onHost(hostName, videoURl);
+    onHost(hostName, videoURl);
   };
   const _onJoin = (e) => {
     e.preventDefault();
-    props.onJoin(joinName, joinURL);
+    onJoin(joinName, joinURL);
   };
   return (
     <>
@@ -47,7 +47,7 @@ const Forms = (props) => {
           buttonName="Host"
           header="Start a Party!"
           onSubmit={_onHost}
-          loading={props.hostLoading}
+          loading={hostLoading}
         >
           <Controls>
             <Label htmlFor="username1">Your Name</Label>
@@ -83,7 +83,7 @@ const Forms = (props) => {
           buttonName="Join"
           header="Join existing Party!"
           onSubmit={_onJoin}
-          loading={props.loading}
+          loading={hostLoading}
         >
           <Controls>
             <Label htmlFor="username2">Your Name</Label>

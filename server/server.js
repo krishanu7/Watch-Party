@@ -1,21 +1,15 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const server = require('http').createServer(app);
-const ioUtils = require('./utils/io');
+const server = require("http").createServer(app);
+const PORT = process.env.PORT || 8080;
+const ioUtils = require("./utils/io");
 
 const io = require('socket.io')(server, {
-  path: '/socket',
-  origins: ['http://localhost:3000'], 
-  serveClient: false,
-});
-
-const cors = require('cors');
-app.use(cors({ origin: 'http://localhost:3000' }));
-
-const PORT = process.env.PORT || 8080;
-
-app.get('/', (req, res, next) => {
-  res.send({ message: 'Hello World' });
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"]
+  },
+  path: "/socket",
 });
 
 ioUtils.setupIO(io);

@@ -1,4 +1,5 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { Container, Row, Col, Hidden } from "react-grid-system";
 import Topbar from "../common/Topbar";
@@ -7,10 +8,14 @@ import { colors } from "../../config/colors";
 import Button from "../common/Button";
 import FeatureBox from "./FeatureBox";
 import { getVideoId } from "../../utills/helper";
+import { createConnection } from "../../utills/socket";
+import { UserContext } from "../../context/UserContext";
 
 const Welcome = (props) => {
   let isEnd = useRef(null);
+  const navigate = useNavigate();
   const [hostLoading, setHostLoading] = useState(false);
+  const { setSocket, dispatch } = useContext(UserContext);
 
   const scrollToBottom = () => {
     if (isEnd && isEnd.current) {
@@ -18,22 +23,26 @@ const Welcome = (props) => {
     }
   };
 
-  const onHost = async (hostName, videoURL) => {
+  const onHost = async (username, videoURL) => {
+    // used socket.id as room address
     setHostLoading(true);
     const videoId = getVideoId(videoURL);
-    //Create a Socket connection
-    
+    const socket = await createConnection(username, null, videoId);
     setHostLoading(false);
+    setSocket(socket);
+    dispatch({ type: "UPDATE_SOCKET", socket: socket });
+    navigate(`/room/${socket.id}`, {
+      state: { hostId: socket.id, username, videoId },
+    });
   };
-  
-  const onJoin = async (joinName, joinURL) => {
+
+  const onJoin = async (username, joinURL) => {
     //TODO : Add verification for join url set password like thing
     const splitURL = joinURL.split("/");
     const roomId = splitURL[splitURL.length - 1];
-    props.history.push({
-      pathname: `/room/${roomId}`,
-      state: {joinName},
-    })
+    navigate(`/room/${roomId}`, {
+      state: { username },
+    });
   };
 
   return (
@@ -50,7 +59,11 @@ const Welcome = (props) => {
               Host <span style={{ color: colors.primaryColor }}>Youtube </span>
               Watch Party with Friends
             </IntroMessage>
-            <Button style={styles.heroButton} onClick={scrollToBottom} primary>
+            <Button
+              style={styles.heroButton}
+              onClick={scrollToBottom}
+              primary="true"
+            >
               {" "}
               Get Started
             </Button>

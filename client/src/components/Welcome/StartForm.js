@@ -15,9 +15,9 @@ const CustomForm = (props) => {
           <Button
             type="submit"
             style={{ alignSelf: "center", marginTop: "30px" }}
-            secondary
             isLoading={loading}
             disabled={loading}
+            secondary="true"
           >
             {buttonName}
           </Button>

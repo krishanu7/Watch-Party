@@ -8,7 +8,7 @@ export const userReducer = (state, action) => {
     case "UPDATE_VIDEO_ID":
       return {
         ...state,
-        videoID: action.videoId,
+        videoId: action.videoId,
       };
     case "UPDATE_USER_LIST":
       return {
@@ -19,8 +19,8 @@ export const userReducer = (state, action) => {
       const { id, from, text, timestamp } = action.data;
       return {
         ...state,
-        message: [
-          ...state.message,
+        messages: [
+          ...state.messages,
           {
             id,
             from,

@@ -15,7 +15,7 @@ const Welcome = (props) => {
   let isEnd = useRef(null);
   const navigate = useNavigate();
   const [hostLoading, setHostLoading] = useState(false);
-  const { setSocket, dispatch } = useContext(UserContext);
+  const { dispatch } = useContext(UserContext);
 
   const scrollToBottom = () => {
     if (isEnd && isEnd.current) {
@@ -27,12 +27,11 @@ const Welcome = (props) => {
     // used socket.id as room address
     setHostLoading(true);
     const videoId = getVideoId(videoURL);
-    const socket = await createConnection(username, null, videoId);
+    const _socket = await createConnection(username, null, videoId);
     setHostLoading(false);
-    setSocket(socket);
-    dispatch({ type: "UPDATE_SOCKET", socket: socket });
-    navigate(`/room/${socket.id}`, {
-      state: { hostId: socket.id, username, videoId },
+    dispatch({ type: 'UPDATE_SOCKET', socket: _socket });
+    navigate(`/room/${_socket.id}`, {
+      state: { hostId: _socket.id, username, videoId },
     });
   };
 

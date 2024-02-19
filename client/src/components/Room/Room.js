@@ -15,13 +15,12 @@ import { SignalContext } from "../../context/SignalContext";
 const Room = () => {
   const location = useLocation();
   const [isHost, setHost] = useState(false);
-  const [socket, setSocket] = useState(null);
   const [roomLoading, setRoomLoading] = useState(true);
-  const { dispatch: userDispatch, userData } = useContext(UserContext);
+  const { dispatch: userDispatch, userData, socket, setSocket } = useContext(UserContext);
   const { dispatch: signalDispatch } = useContext(SignalContext);
   let _isHost = false;
   let _socket = null;
-
+  console.log(socket);
   const setupRoom = async () => {
     const hostId = location.state?.hostId;
     const videoId = location.state?.videoId;
@@ -44,7 +43,7 @@ const Room = () => {
     } else {
       // Is a host
       _isHost = true;
-      _socket = userData.socket;
+      _socket = socket;
       userDispatch({ type: "UPDATE_VIDEO_ID", videoId });
       showInviteModal();
     }
@@ -57,7 +56,7 @@ const Room = () => {
   };
 
   useEffect(() => {
-    setupRoom();
+      setupRoom();
   }, []);
 
   const showInviteModal = async () => {
@@ -89,7 +88,7 @@ const Room = () => {
   const onVideoChange = async () => {
     const newUrl = await askVideoUrl();
     if (newUrl && socket) {
-      console.log(_socket);
+      console.log(socket);
       const videoId = getVideoId(newUrl);
       socket.emit("changeVideo", { videoId });
     }

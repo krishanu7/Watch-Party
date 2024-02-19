@@ -13,7 +13,8 @@ const Player = (props) => {
     if (player.current) return player.current.getInternalPlayer();
     else return null;
   };
-  const emitVidoState = (type, payload = {}, delayOffset = 0) => {
+
+  const emitVideoState = (type, payload = {}, delayOffset = 0) => {
     setTimeout(() => {
       if (socket && !signalData.transition) {
         console.log("Emmiting video state;", type);
@@ -34,10 +35,7 @@ const Player = (props) => {
     player.pauseVideo();
     if (signalData.videoChanging) {
       signalDispatch({ type: "SET_TRANSITION", transition: false });
-      signalDispatch({
-        type: "VIDEO_CHANGING",
-        videoChanging: false,
-      });
+      signalDispatch({ type: "VIDEO_CHANGING", videoChanging: false });
     }
   };
 
@@ -56,6 +54,7 @@ const Player = (props) => {
 
   const onStateChange = (e) => {
     const { data } = e;
+    console.log(e);
     const player = getCurrentPlayer();
     if (!player) return;
     switch (data) {
@@ -70,18 +69,18 @@ const Player = (props) => {
         signalDispatch({ type: "SET_TRANSITION", transition: false });
         player.playVideo();
 
-        emitVidoState("PLAY", { currentTime: e.target.getCurrentTime() }, 150);
+        emitVideoState("PLAY", { currentTime: e.target.getCurrentTime() }, 150);
         break;
-      case 2://Pause
-        console.log('Case 2 video paused');
-        emitVidoState("PAUSE");
-        signalDispatch({type: "SET_TRANSITION", transition: false});
+      case 2: //Pause
+        console.log("Case 2 video paused");
+        emitVideoState("PAUSE");
+        signalDispatch({ type: "SET_TRANSITION", transition: false });
       case 3:
-        console.log('Case 3 Bufferring');
-				break;
+        console.log("Case 3 Bufferring");
+        break;
       case 4:
         console.log("Case 4 Video Cued");
-        signalDispatch({type: "SET_TRANSITION", transition: false});
+        signalDispatch({ type: "SET_TRANSITION", transition: false });
       default:
         break;
     }

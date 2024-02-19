@@ -29,11 +29,6 @@ export const userReducer = (state, action) => {
           },
         ],
       };
-    case "UPDATE_SOCKET":
-      return {
-        ...state,
-        socket: action.socket,
-      };
     default:
       return state;
   }

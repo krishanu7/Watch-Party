@@ -5,7 +5,7 @@ import Participants from "./Participants";
 import { UserContext } from "../../../context/UserContext";
 import { Input } from "../../common/FormControls";
 import Button from "../../common/Button";
-import { colors } from "../../../config/colors"
+import { colors } from "../../../config/colors";
 import { FaPaperPlane } from "react-icons/fa";
 
 const Chat = (props) => {
@@ -40,7 +40,7 @@ const Chat = (props) => {
             minWidth: 0,
             padding: "0 10px",
             backgroundColor: colors.secondaryColor,
-            border: "1px solid hsl(202.54deg 100% 73.3%)"
+            border: "1px solid hsl(202.54deg 100% 73.3%)",
           }}
         >
           <FaPaperPlane />

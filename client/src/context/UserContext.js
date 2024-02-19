@@ -6,14 +6,14 @@ export const UserContext = createContext();
 export const UserContextProvider = (props) => {
   const initialState = {
     userList: [],
-    message: [],
+    messages: [],
     videoId: "",
     username: "",
-    socket: null,
   };
   const [userData, dispatch] = useReducer(userReducer, initialState);
+  const [socket, setSocket] = useState(null);
   return (
-    <UserContext.Provider value={{ userData, dispatch }}>
+    <UserContext.Provider value={{ userData, dispatch, socket, setSocket }}>
       {props.children}
     </UserContext.Provider>
   );

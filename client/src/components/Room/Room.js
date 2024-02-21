@@ -16,11 +16,15 @@ const Room = () => {
   const location = useLocation();
   const [isHost, setHost] = useState(false);
   const [roomLoading, setRoomLoading] = useState(true);
-  const { dispatch: userDispatch, userData, socket, setSocket } = useContext(UserContext);
+  const {
+    dispatch: userDispatch,
+    userData,
+    socket,
+    setSocket,
+  } = useContext(UserContext);
   const { dispatch: signalDispatch } = useContext(SignalContext);
   let _isHost = false;
   let _socket = null;
-  console.log(socket);
   const setupRoom = async () => {
     const hostId = location.state?.hostId;
     const videoId = location.state?.videoId;
@@ -56,7 +60,7 @@ const Room = () => {
   };
 
   useEffect(() => {
-      setupRoom();
+    setupRoom();
   }, []);
 
   const showInviteModal = async () => {
@@ -77,19 +81,30 @@ const Room = () => {
   };
 
   const askVideoUrl = async () => {
-    const { video: url } = await Swal.fire({
-      title: "Youtube Video URL",
-      input: "url",
-      inputPlaceholder: "https://www.youtube.com/watch?v=BTYAsjAVa3I",
-    });
-    return url;
+    try {
+      const { value: url } = await Swal.fire({
+        title: "Youtube Video URL",
+        input: "url",
+        inputPlaceholder: "https://www.youtube.com/watch?v=BTYAsjAVa3I",
+        showCancelButton: true, // Enable Cancel button
+        inputValidator: (value) => {
+          if (!value) {
+            return "Please enter a valid URL";
+          }
+        },
+      });
+      return url;
+    } catch (error) {
+      console.error("Error while prompting for video URL:", error);
+      return null; // Or handle the error appropriately
+    }
   };
 
   const onVideoChange = async () => {
     const newUrl = await askVideoUrl();
     if (newUrl && socket) {
-      console.log(socket);
       const videoId = getVideoId(newUrl);
+      console.log(videoId);
       socket.emit("changeVideo", { videoId });
     }
   };
@@ -115,9 +130,9 @@ const Room = () => {
             </Col>
             <Col md={4} sm={12}>
               <Options
+                onVideoChange={onVideoChange}
                 onInvite={showInviteModal}
                 alertNotImplemented={alertNotImplemented}
-                onVideoChange={onVideoChange}
               />
               <Chat socket={socket} />
             </Col>

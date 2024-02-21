@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 const Participants = (props) => {
   const {users} = props;
-  console.log(users);
   return (
     <>
       <strong>Participants</strong>

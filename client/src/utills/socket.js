@@ -55,6 +55,7 @@ export const bindSocketEvents = async (socket, dispatchFunc) => {
 				break;
 
 			case 'changeVideo':
+				console.log("changing");
 				userDispatch({
 					type: 'UPDATE_VIDEO_ID',
 					videoId: data.payload.videoId,

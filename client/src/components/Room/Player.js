@@ -1,12 +1,15 @@
-import React, { useRef, useEffect, useContext } from "react";
-import YouTube from "react-youtube";
+import React, { useEffect, useContext, createRef } from "react";
 import styled from "styled-components";
+import YouTube from "react-youtube";
 import { SignalContext } from "../../context/SignalContext";
 
-const Player = (props) => {
-  let player = useRef(null);
+function Player(props) {
+  let player = createRef();
   const { videoId, socket } = props;
-  const options = { width: "100%", height: "500px" };
+  const options = {
+    width: "100%",
+    height: "500px",
+  };
   const { dispatch: signalDispatch, signalData } = useContext(SignalContext);
 
   const getCurrentPlayer = () => {
@@ -17,17 +20,19 @@ const Player = (props) => {
   const emitVideoState = (type, payload = {}, delayOffset = 0) => {
     setTimeout(() => {
       if (socket && !signalData.transition) {
-        console.log("Emmiting video state;", type);
+        console.log("Emitting video state", type);
         socket.emit("videoStateChange", { type, payload });
       }
     }, 500 + delayOffset);
   };
+
   const onVideoPlay = () => {
     const player = getCurrentPlayer();
     if (!player) return;
     player.seekTo(signalData.playVideo || 0);
     player.playVideo();
   };
+
   const onVideoPause = () => {
     const player = getCurrentPlayer();
     if (!player) return;
@@ -35,7 +40,10 @@ const Player = (props) => {
     player.pauseVideo();
     if (signalData.videoChanging) {
       signalDispatch({ type: "SET_TRANSITION", transition: false });
-      signalDispatch({ type: "VIDEO_CHANGING", videoChanging: false });
+      signalDispatch({
+        type: "VIDEO_CHANGING",
+        videoChanging: false,
+      });
     }
   };
 
@@ -54,37 +62,54 @@ const Player = (props) => {
 
   const onStateChange = (e) => {
     const { data } = e;
-    console.log(e);
     const player = getCurrentPlayer();
     if (!player) return;
+
     switch (data) {
       case -1:
-        console.log("Case -1 video is not started");
+        console.log("Case -1 Video unstarted");
         break;
+
       case 0:
-        console.log("Case 0 video Ended");
+        console.log("Case 0 Video Ended");
         break;
-      case 1: //Play
+
+      case 1:
+        // PLAY
         console.log("Case 1 Video Play");
         signalDispatch({ type: "SET_TRANSITION", transition: false });
         player.playVideo();
 
-        emitVideoState("PLAY", { currentTime: e.target.getCurrentTime() }, 150);
+        emitVideoState(
+          "PLAY",
+          {
+            currentTime: e.target.getCurrentTime(),
+          },
+          150
+        );
         break;
-      case 2: //Pause
-        console.log("Case 2 video paused");
+
+      case 2:
+        // PAUSE
+        console.log("Case 2 Video paused");
         emitVideoState("PAUSE");
         signalDispatch({ type: "SET_TRANSITION", transition: false });
+        break;
+
       case 3:
         console.log("Case 3 Bufferring");
         break;
-      case 4:
-        console.log("Case 4 Video Cued");
+
+      case 5:
+        console.log("Case 5 Video Cued");
         signalDispatch({ type: "SET_TRANSITION", transition: false });
+        break;
+
       default:
         break;
     }
   };
+
   return (
     <StyledPlayer>
       {videoId ? (
@@ -97,7 +122,7 @@ const Player = (props) => {
       ) : null}
     </StyledPlayer>
   );
-};
+}
 
 const StyledPlayer = styled.div`
   margin-top: 30px;

@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, createRef } from "react";
 import styled from "styled-components";
 import YouTube from "react-youtube";
-import { SignalContext } from "../../context/SignalContext";
+import { SignalContext } from "../../contexts/SignalContext";
 
 function Player(props) {
   let player = createRef();

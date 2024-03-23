@@ -3,9 +3,8 @@ import styled from 'styled-components';
 import { spinAnimation } from './Spinner';
 import { colors } from '../../config/colors';
 
-const Button = ({ children, isLoading, ...props }) => {
-  return (
-    <StyledButton {...props} isLoading={isLoading}>
+export const Button = ({ children, isLoading, ...props }) => (
+	<StyledButton {...props} isLoading={isLoading}>
 		{isLoading ? (
 			<Loading>
 				<ion-icon
@@ -16,14 +15,15 @@ const Button = ({ children, isLoading, ...props }) => {
 		) : null}
 		{children}
 	</StyledButton>
-  )
-}
+);
+
 const Loading = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	animation: ${spinAnimation} 2s linear infinite;
 `;
+
 const StyledButton = styled.button`
 	border-radius: 5px;
 	display: flex;
@@ -53,6 +53,3 @@ const StyledButton = styled.button`
 
 	${(props) => props.loading && 'opacity: 0.8'}
 `;
-
-
-export default Button

@@ -1,14 +1,15 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const server = require("http").createServer(app);
 const ioUtils = require("./utils/io");
-const cors = require("cors");
 
-app.use(cors());
+app.use(cors({
+  origin: "https://watchtogether-live.netlify.app"
+}));
 
 const io = require("socket.io")(server, {
   path: "/socket",
-  origins: ["https://watchtogether-live.netlify.app"],
   serveClient: false,
 });
 

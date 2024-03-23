@@ -146,5 +146,7 @@ const Component = styled.div`
 	height: 100vh;
 	background-color: #F0FFFF;
 	width: 100vw;
+	overflow: scroll;
+	overflow-y: scroll;
 `;
 export default Room;

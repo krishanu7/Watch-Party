@@ -25,6 +25,6 @@ const StyledBar = styled.div`
   justify-content: center;
   font-size: 1.8em;
   font-weight: 800;
-  background-color: #22092C;
+  background-color: #22092c;
 `;
 export default Topbar;

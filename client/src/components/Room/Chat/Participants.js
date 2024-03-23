@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 function Participants(props) {
 	return (
-		<React.Fragment>
+		<>
 			<div>
 				<strong>Participants</strong>
 			</div>
@@ -15,11 +15,11 @@ function Participants(props) {
 			<div
 				style={{
 					height: '1px',
-					backgroundColor: '#eee',
+					backgroundColor: 'pink',
 					margin: '12px 0',
 				}}
 			></div>
-		</React.Fragment>
+		</>
 	);
 }
 
@@ -33,7 +33,7 @@ const ParticipantInfo = styled.div`
 const Box = styled.div`
 	box-sizing: border-box;
 	padding: 3px 20px;
-	border: 1.5px solid orange;
+	border: 1.5px solid magenta;
 	text-align: center;
 	font-weight: 500;
 	margin-right: 5px;

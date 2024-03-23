@@ -47,7 +47,7 @@ function Chat(props) {
 }
 
 const StyledChat = styled.div`
-	background-color: #fff;
+	background-color: #FFF;
 	display: flex;
 	flex-direction: column;
 	height: 465px;
@@ -62,7 +62,7 @@ const StyledChat = styled.div`
 const sendButtonStyle = {
 	minWidth: 0,
 	padding: '0 20px',
-	backgroundColor: colors.primaryColor,
+	backgroundColor: colors.secondaryColor,
 };
 
 const MessageSend = styled.form`

@@ -39,10 +39,6 @@ const StyledFooter = styled.div`
   height: 8vh;
   display: flex;
   flex-direction: column;
-  overflow-y: scroll;
-  position: relative;
-  bottom: 0;
-  left: 0; 
   width: 100%;
   align-items: center;
   justify-content: center;

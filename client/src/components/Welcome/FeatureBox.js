@@ -1,54 +1,43 @@
 import React from "react";
-import styled from "styled-components";
 import { Row, Col, Hidden } from "react-grid-system";
+import styled from "styled-components";
 import { colors } from "../../config/colors";
-import { HiOutlineTv } from "react-icons/hi2";
-import { IoSyncOutline } from "react-icons/io5";
-import { BsChatLeftDots } from "react-icons/bs";
 
-const iconComponents = {
-  HiOutlineTv: HiOutlineTv,
-  IoSyncOutline: IoSyncOutline,
-  BsChatLeftDots: BsChatLeftDots,
-};
+const FeatureBox = (props) => (
+  <Row style={{ marginTop: "80px" }}>
+    <Hidden xs>
+      <Col xs={2.1}></Col>
+    </Hidden>
 
-const FeatureBox = () => {
-  return (
-    <Row style={{ marginTop: "80px" }}>
-      <Hidden xs>
-        <Col xs={2.1}></Col>
-      </Hidden>
-      <Col xs={12} md={2.6}>
-        <Box icon="HiOutlineTv">Host Video in a room</Box>
-      </Col>
-      <Col xs={12} md={2.6}>
-        <Box icon="IoSyncOutline">Sync video with each other</Box>
-      </Col>
-      <Col xs={12} md={2.6}>
-        <Box icon="BsChatLeftDots">Live chat with friends</Box>
-      </Col>
-      <Hidden xs>
-        <Col xs={2.1}></Col>
-      </Hidden>
-    </Row>
-  );
-};
+    {/* --------- Feature box -------- */}
+    <Col xs={12} md={2.6}>
+      <Box icon="tv-outline">Host Video in a room</Box>
+    </Col>
+    <Col xs={12} md={2.6}>
+      <Box icon="sync-outline">Sync video with each other</Box>
+    </Col>
+    <Col xs={12} md={2.6}>
+      <Box icon="chatbox-ellipses-outline">Live chat with friends</Box>
+    </Col>
 
-const Box = (props) => {
-  const IconComponent = iconComponents[props.icon];
+    <Hidden xs>
+      <Col xs={2.1}></Col>
+    </Hidden>
+  </Row>
+);
 
-  return (
-    <StyledBox>
-      <IconComponent
-        style={{
-          fontSize: "2em",
-          color: colors.secondaryColor,
-        }}
-      />
-      <div>{props.children}</div>
-    </StyledBox>
-  );
-};
+const Box = (props) => (
+  <StyledBox>
+    <ion-icon
+      name={props.icon}
+      style={{
+        fontSize: "2em",
+        color: colors.secondaryColor,
+      }}
+    ></ion-icon>
+    <div>{props.children}</div>
+  </StyledBox>
+);
 
 const StyledBox = styled.div`
   display: flex;
@@ -61,10 +50,10 @@ const StyledBox = styled.div`
   border-radius: 10px;
   margin-bottom: 18px;
   font-size: 0.9em;
-	font-weight: 525;
-	box-sizing: border-box;
-	box-shadow: 0px 1px 5px #DDD;
-  background-color: #FFF5E4;
+  font-weight: 480;
+  box-sizing: border-box;
+  box-shadow: 0px 1px 5px #ddd;
+  background-color: #fff5e4;
 `;
-export default FeatureBox;
 
+export default FeatureBox;

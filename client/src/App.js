@@ -1,15 +1,16 @@
-import React from "react";
-import { SignalContextProvider } from "./context/SignalContext";
-import { UserContextProvider } from "./context/UserContext";
-import "./App.css"
-import AllRoutes from "./AllRoutes"
-const App = () => {
-  return (
-      <UserContextProvider>
-        <SignalContextProvider>
-          <AllRoutes />
-        </SignalContextProvider>
-      </UserContextProvider>
-  );
-};
+import React from 'react';
+import { UserContextProvider } from './contexts/UserContext';
+import { SignalContextProvider } from './contexts/SignalContext';
+import Routes from './Routes';
+
+function App() {
+	return (
+		<UserContextProvider>
+			<SignalContextProvider>
+				<Routes />
+			</SignalContextProvider>
+		</UserContextProvider>
+	);
+}
+
 export default App;

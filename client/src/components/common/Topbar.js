@@ -19,7 +19,7 @@ const Topbar = () => {
 };
 const StyledBar = styled.div`
   display: flex;
-  height: 8vh;
+  height: 10vh;
   box-shadow: 2px 2px 10px #ddd;
   align-items: center;
   justify-content: center;

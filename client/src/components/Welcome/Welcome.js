@@ -1,21 +1,17 @@
-import React, { useState, useRef, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import React, { useState, useRef } from "react";
+import { createConnection } from "../../utils/socket";
 import { Container, Row, Col, Hidden } from "react-grid-system";
-import Topbar from "../common/Topbar";
-import Form from "./StartForm";
-import { colors } from "../../config/colors";
-import Button from "../common/Button";
+import styled from "styled-components";
+import StartForm from "./StartForm";
 import FeatureBox from "./FeatureBox";
-import { getVideoId } from "../../utills/helper";
-import { createConnection } from "../../utills/socket";
-import { UserContext } from "../../context/UserContext";
+import { Button } from "../common";
+import { colors } from "../../config/colors";
+import { getVideoId } from "../../utils/helper";
 
-const Welcome = (props) => {
+function Welcome(props) {
+  // const [canRedirectToRoom, setRedirect] = useState(false);
   let isEnd = useRef(null);
-  const navigate = useNavigate();
   const [hostLoading, setHostLoading] = useState(false);
-  const { setSocket } = useContext(UserContext);
 
   const scrollToBottom = () => {
     if (isEnd && isEnd.current) {
@@ -23,36 +19,38 @@ const Welcome = (props) => {
     }
   };
 
-  const onHost = async (username, videoURL) => {
-    // used socket.id as room address
+
+  const onHost = async (username, videoUrl) => {
+    // use socket id as room address
     setHostLoading(true);
-    const videoId = getVideoId(videoURL);
-    const _socket = await createConnection(username, null, videoId);
+    const videoId = getVideoId(videoUrl);
+    const socket = await createConnection(username, null, videoId);
     setHostLoading(false);
-    setSocket(_socket);
-    navigate(`/room/${_socket.id}`, {
-      state: { hostId: _socket.id, username, videoId },
+
+    props.history.push({
+      pathname: `/room/${socket.id}`,
+      state: { hostId: socket.id, username, videoId },
+      socket,
     });
   };
 
-  const onJoin = async (username, joinURL) => {
-    //TODO : Add verification for join url set password like thing
-    const splitURL = joinURL.split("/");
-    const roomId = splitURL[splitURL.length - 1];
-    navigate(`/room/${roomId}`, {
+  const onJoin = (username, joinUrl) => {
+    // TODO: Add verification for join url
+    const splitUrl = joinUrl.split("/");
+    const roomId = splitUrl[splitUrl.length - 1];
+    props.history.push({
+      pathname: `/room/${roomId}`,
       state: { username },
     });
   };
 
   return (
-    <>
-      <Topbar />
+    <div style={{background: "#F0FFFF"}}>
       <Container fluid>
         <Row style={{ paddingTop: "80px" }} align="center">
           <Hidden xs>
             <Col xs={2}></Col>
           </Hidden>
-          {/* --------- Intro Message -------- */}
           <Col xs={12} md={4}>
             <IntroMessage>
               Host <span style={{ color: colors.primaryColor }}>Youtube </span>
@@ -79,12 +77,12 @@ const Welcome = (props) => {
       <Container fluid>
         <Row align="center" style={styles.formContainer}>
           <Col xs={12} md={2}></Col>
-          <Form onHost={onHost} onJoin={onJoin} hostLoading={hostLoading} />
+          <StartForm onHost={onHost} onJoin={onJoin} hostLoading={hostLoading} />
           <Col xs={12} md={2}></Col>
           <div className="dummy" ref={isEnd}></div>
         </Row>
       </Container>
-    </>
+    </div>
   );
 };
 
@@ -101,7 +99,7 @@ const styles = {
     padding: "15px 10px",
   },
   formContainer: {
-    backgroundImage: "linear-gradient(#f9f9f9, #fff)",
+    background: "#F0FFFF",
     marginBottom: "40px",
     zIndex: 10,
     minHeight: "100vh",

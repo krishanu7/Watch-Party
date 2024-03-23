@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-import { showToast } from '../utills/helper';
+import { showToast } from '../utils/helper';
 
 export const createConnection = (name, roomId = null, videoId = null) => {
   return new Promise((resolve) => {
@@ -55,7 +55,8 @@ export const bindSocketEvents = async (socket, dispatchFunc) => {
 				break;
 
 			case 'changeVideo':
-				console.log("changing");
+				// initiated when user is joining the room first time
+				// tells him about the currently playing video
 				userDispatch({
 					type: 'UPDATE_VIDEO_ID',
 					videoId: data.payload.videoId,
@@ -63,6 +64,8 @@ export const bindSocketEvents = async (socket, dispatchFunc) => {
 				break;
 
 			case 'updateVideoId':
+				// initiated when video is changed in the middle of playing
+				// everyone is informed of the newly selected video
 				signalDispatch({ type: 'RESET_SIGNAL_STATE' });
 				signalDispatch({ type: 'VIDEO_CHANGING', videoChanging: true });
 				userDispatch({

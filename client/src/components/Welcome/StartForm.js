@@ -64,7 +64,7 @@ const Forms = (props) => {
               value={hostDisplayName}
               onChange={(e) => setHostDisplayName(e.target.value)}
               id="name1"
-              placeholder="John The Host"
+              placeholder="Your Name"
               required
             />
           </Controls>
@@ -100,7 +100,7 @@ const Forms = (props) => {
               value={joinDisplayName}
               onChange={(e) => setJoinDisplayName(e.target.value)}
               id="name2"
-              placeholder="Dursley"
+              placeholder="Your Name"
               required
             />
           </Controls>

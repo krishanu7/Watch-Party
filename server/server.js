@@ -1,16 +1,30 @@
 const express = require("express");
 const cors = require("cors");
-const app = express();
-const server = require("http").createServer(app);
+const http = require("http");
+const { Server } = require("socket.io");
 const ioUtils = require("./utils/io");
 
+const app = express();
+const server = http.createServer(app);
+
+// Set up CORS for Express
 app.use(cors({
-  origin: "https://watchtogether-live.netlify.app"
+  origin: "http://localhost:3000",
+  methods: ["GET", "POST"],
+  allowedHeaders: ["Content-Type"],
+  credentials: true
 }));
 
-const io = require("socket.io")(server, {
+// Set up Socket.IO with CORS
+const io = new Server(server, {
   path: "/socket",
   serveClient: false,
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type"],
+    credentials: true
+  }
 });
 
 const PORT = process.env.PORT || 8080;

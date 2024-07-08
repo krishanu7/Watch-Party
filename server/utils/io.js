@@ -8,9 +8,9 @@ exports.setupIO = (io) => {
     console.log(`User connected: ${socket.id}`);
 
     socket.on("join", (data) => {
-      console.log("joining user", data);
+      //console.log("joining user", data);
       const { roomId, name, userId, videoId } = data;
-      console.log(`User ${name} just joined in room ${roomId}`);
+      //console.log(`User ${name} just joined in room ${roomId}`);
 
       socket.join(roomId);
       Rooms.addRoom(roomId, videoId);
@@ -56,7 +56,7 @@ exports.setupIO = (io) => {
 
     socket.on("videoStateChange", (data) => {
       const user = Rooms.getUser(socket.id);
-      console.log("videoStateChange trigerred", data);
+     // console.log("videoStateChange trigerred", data);
       // tell others to update the videoState
       socket.broadcast.to(user.roomId).emit(
         "newMessage",

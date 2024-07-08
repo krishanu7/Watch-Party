@@ -40,7 +40,6 @@ class Rooms {
       // remove user from the user-room mapping
       delete this.userMap[userId];
 
-      // remove room if applicable
       this.removeRoom(roomId);
 
       return _user;
@@ -66,13 +65,6 @@ class Rooms {
     return users.find((user) => user.id === userId);
   }
 
-  showInfo() {
-    const rooms = Object.keys(this.rooms);
-    rooms.forEach((roomId) => {
-      console.log(`Room: ${roomId}`);
-      this.rooms[roomId]["users"].forEach((user) => console.log(user));
-    });
-  }
 }
 
 module.exports = new Rooms();

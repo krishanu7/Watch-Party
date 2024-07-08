@@ -23,7 +23,7 @@ function Player(props) {
         console.log("Emitting video state", type);
         socket.emit("videoStateChange", { type, payload });
       }
-    }, 500 + delayOffset);
+    }, delayOffset);
   };
 
   const onVideoPlay = () => {
@@ -60,11 +60,11 @@ function Player(props) {
   useEffect(onVideoPause, [signalData.pauseVideo]);
   useEffect(loadNewVideo, [videoId]);
 
+ 
   const onStateChange = (e) => {
     const { data } = e;
     const player = getCurrentPlayer();
     if (!player) return;
-
     switch (data) {
       case -1:
         console.log("Case -1 Video unstarted");
@@ -109,6 +109,11 @@ function Player(props) {
         break;
     }
   };
+  // const onPlaybackQualityChange = (e) => {
+  //   //console.log(e.target.playerInfo.playbackRate);
+  //   const player = getCurrentPlayer();
+  //   console.log(player.getPlaybackRate());
+  // }
 
   return (
     <StyledPlayer>

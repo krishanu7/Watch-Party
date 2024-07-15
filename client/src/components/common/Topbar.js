@@ -12,7 +12,7 @@ const Topbar = () => {
         height="25px"
         style={{ marginRight: "8px" }}
       ></img>
-      <span style={{ color: colors.secondaryColor }}>WATCH</span><span></span>
+      <span style={{ color: colors.secondaryColor }}>WATCH</span>
       <span style={{color:"#F5F7F8"}}>&nbsp;PARTY</span>
     </StyledBar>
   );

@@ -70,7 +70,7 @@ function Room(props) {
 	useEffect(
 		() => {
 			init();
-		}, // eslint-disable-next-line
+		},
 		[]
 	);
 
@@ -105,7 +105,7 @@ function Room(props) {
 		const newURL = await askVideoURL();
 
 		if (newURL && socket) {
-			console.log(_socket);
+			//console.log(_socket);
 			const videoId = getVideoId(newURL);
 			socket.emit('changeVideo', { videoId });
 		}

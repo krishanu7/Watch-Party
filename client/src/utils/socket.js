@@ -3,8 +3,9 @@ import { showToast } from "../utils/helper";
 
 export const createConnection = (name, roomId = null, videoId = null) => {
   return new Promise((resolve) => {
-    const socket = io("https://watch-party-vp4j.onrender.com", {
+    const socket = io("http://localhost:8080", {
       path: "/socket",
+      withCredentials: true,
     });
     socket.on("connect", () => {
       socket.emit("join", {
@@ -52,8 +53,6 @@ export const bindSocketEvents = async (socket, dispatchFunc) => {
         break;
 
       case "changeVideo":
-        // initiated when user is joining the room first time
-        // tells him about the currently playing video
         userDispatch({
           type: "UPDATE_VIDEO_ID",
           videoId: data.payload.videoId,
@@ -122,7 +121,7 @@ export const bindSocketEvents = async (socket, dispatchFunc) => {
   });
 
   socket.on("updateUserList", (userList) => {
-    console.log("new user list", userList);
+    //console.log("new user list", userList);
     userDispatch({ type: "UPDATE_USER_LIST", users: userList });
   });
 };

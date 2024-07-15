@@ -56,8 +56,7 @@ exports.setupIO = (io) => {
 
     socket.on("videoStateChange", (data) => {
       const user = Rooms.getUser(socket.id);
-     // console.log("videoStateChange trigerred", data);
-      // tell others to update the videoState
+      //console.log("videoStateChange trigerred", data.type);
       socket.broadcast.to(user.roomId).emit(
         "newMessage",
         generateServerMessage("updateVideoState", {
